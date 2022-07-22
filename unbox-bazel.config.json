@@ -1,0 +1,14 @@
+{
+  "bazelAdditionalIncludes": [{
+    "type": "-isystem",
+    "path": "bazel-out/k8-fastbuild/bin/external/wt/copy_wt/wt/wt.build_tmpdir"
+  }],
+  "bazelExternalReplacements": {
+    "boost/boost/include/boost-1_76": "external/boost/package",
+    "uWebSockets": "external/uWebSockets/package",
+    "uWebSockets/uSockets/include": "external/uWebSockets/package/uSockets/src",
+    "flatbuffers": "external/flatbuffers/package",
+    "system": "",
+    "bazel_tools": ""
+  }
+}

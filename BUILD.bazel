@@ -1,0 +1,13 @@
+# Hey Emacs, this is -*- coding: utf-8; mode: bazel -*-
+
+load("@rules_compdb//:defs.bzl", "compilation_database")
+
+compilation_database(
+  name = "compdb",
+  targets = [
+    "//packages/hello-world",
+    # "@host//server:s600-host",
+    # "@flatbuffers//src:flatc",
+  ],
+  module_exts = ["cpp"],
+)
