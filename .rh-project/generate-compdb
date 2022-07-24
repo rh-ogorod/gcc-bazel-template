@@ -1,0 +1,152 @@
+#!/bin/bash
+
+set -eu
+set -o pipefail
+
+SDPATH="$(dirname "${BASH_SOURCE[0]}")"
+if [ ! -d "${SDPATH}" ]; then SDPATH="${PWD}"; fi
+readonly SDPATH="$(cd -P "${SDPATH}" && pwd)"
+
+cd "${SDPATH}"; echo + cd "${PWD}"
+
+echo
+CMD=(./build-hello-world); echo + "${CMD[@]}" && "${CMD[@]}"
+
+PRJ_ROOT_PATH="${SDPATH}/.."
+readonly PRJ_ROOT_PATH="$(cd "${PRJ_ROOT_PATH}" && pwd)"
+
+BAZEL_WORKSPACE_PATH="${PRJ_ROOT_PATH}"
+
+# https://stackoverflow.com/questions/40260242/how-to-set-c-standard-version-when-build-with-bazel
+export CC=gcc-11
+export CXX=g++-11
+
+cd "${BAZEL_WORKSPACE_PATH}"; echo + cd "${PWD}"
+
+readonly MERGE=$(realpath external/bazelbuild-rules-compdb/merge.js)
+# readonly UNBOX_CMAKE=$(realpath external/bazelbuild-rules-compdb/unbox-cmake.js)
+readonly UNBOX_BAZEL=$(realpath external/bazelbuild-rules-compdb/unbox-bazel.js)
+# readonly C2CDB=$(realpath external/commands_to_compilation_database/`
+#   `commands_to_compilation_database_py)
+
+readonly COMPDB_TMPD_PATH="${PWD}/.cache/compdb"
+
+echo
+CMD=(bazel build --subcommands //:compdb '--color=yes' '--curses=yes')
+echo + "${CMD[@]}" && "${CMD[@]}"
+
+# echo
+# CMD=(rm -frv)
+# CMD+=("${COMPDB_TMPD_PATH}")
+# echo + "${CMD[@]}" && "${CMD[@]}"
+
+echo
+CMD=(mkdir -vp "${COMPDB_TMPD_PATH}")
+echo + "${CMD[@]}" && "${CMD[@]}"
+
+# readonly BOOST_COMPDB_PATH="${COMPDB_TMPD_PATH}/boost-compile_commands.json"
+
+# echo
+# (BOOST_SRC_PATH="$(cd "external/boost/package" && pwd)"
+#  BOOST_BUILD_LOG="$(realpath "bazel-bin/external/boost/boost_foreign_cc/`
+#    `BoostBuild.log")"
+
+#  CMD=(cat "${BOOST_BUILD_LOG}")
+#  CMD+=('|')
+#  CMD+=("${C2CDB}")
+#  CMD+=("--compilers=${CXX}")
+#  CMD+=('--build-tool=Boost.Build')
+#  CMD+=("--root-directory=${BOOST_SRC_PATH}")
+#  CMD+=("--output-filename=${BOOST_COMPDB_PATH}")
+#  echo + "${CMD[@]}" && eval "${CMD[@]}")
+
+# WT_COMPDB_PATH="${COMPDB_TMPD_PATH}/wt-compile_commands.json"
+
+# echo
+# (readonly WT_COMPDB_IN_PATH="$(realpath "bazel-bin/external/wt/`
+#    `copy_wt/wt/wt.build_tmpdir/compile_commands.json")"
+
+#  readonly WT_COMPDB_CONFIG_PATH="$(realpath external/wt/`
+#    `unbox-cmake.config.json)"
+
+#  CMD=(cp "${WT_COMPDB_IN_PATH}" "${WT_COMPDB_PATH}")
+#  echo + "${CMD[@]}" && "${CMD[@]}"
+
+#  CMD=(chmod 'a-x,ug+w' "${WT_COMPDB_PATH}")
+#  echo + "${CMD[@]}" && "${CMD[@]}"
+
+#  CMD=("${UNBOX_CMAKE}")
+#  CMD+=("${WT_COMPDB_PATH}")
+#  CMD+=("${BAZEL_WORKSPACE_PATH}")
+#  CMD+=("${WT_COMPDB_CONFIG_PATH}")
+#  echo + "${CMD[@]}" && "${CMD[@]}")
+
+readonly BAZ_COMPDB_PATH="${COMPDB_TMPD_PATH}/bazel-compile_commands.json"
+
+echo
+(readonly BAZ_COMPDB_IN_PATH="$(realpath "bazel-bin/compile_commands.json")"
+ readonly BAZ_COMPDB_CONFIG_PATH="$(realpath unbox-bazel.config.json)"
+
+ CMD=(cp "${BAZ_COMPDB_IN_PATH}" "${BAZ_COMPDB_PATH}")
+ echo + "${CMD[@]}" && "${CMD[@]}"
+
+ CMD=(chmod 'a-x,ug+w' "${BAZ_COMPDB_PATH}")
+ echo + "${CMD[@]}" && "${CMD[@]}"
+
+ CMD=("${UNBOX_BAZEL}")
+ CMD+=("${BAZ_COMPDB_PATH}")
+ CMD+=("${BAZEL_WORKSPACE_PATH}")
+ CMD+=("${BAZ_COMPDB_CONFIG_PATH}")
+ echo + "${CMD[@]}" && "${CMD[@]}")
+
+# readonly USOCKETS_COMPDB_PATH=`
+#   `"${COMPDB_TMPD_PATH}/uSockets-compile_commands.json"
+
+# echo
+# (USOCKETS_SRC_PATH="$(cd "external/uWebSockets/package/uSockets" && pwd)"
+#  USOCKETS_BUILD_LOG="$(realpath "${USOCKETS_SRC_PATH}/commands.log")"
+
+#  (cd "${USOCKETS_SRC_PATH}"; echo + cd "${PWD}"
+#   CMD=(make commands)
+#   echo + "${CMD[@]}" && "${CMD[@]}")
+
+#  echo
+#  CMD=(cat "${USOCKETS_BUILD_LOG}")
+#  CMD+=('|')
+#  CMD+=("${C2CDB}")
+#  CMD+=("--compilers=${CC},${CXX}")
+#  CMD+=('--build-tool=make')
+#  CMD+=("--root-directory=${USOCKETS_SRC_PATH}")
+#  CMD+=("--output-filename=${USOCKETS_COMPDB_PATH}")
+#  echo + "${CMD[@]}" && eval "${CMD[@]}")
+
+# readonly UWEBSOCKETS_COMPDB_PATH=`
+#   `"${COMPDB_TMPD_PATH}/uWebSockets-compile_commands.json"
+
+# echo
+# (UWEBSOCKETS_SRC_PATH="$(cd "external/uWebSockets/package" && pwd)"
+#  UWEBSOCKETS_BUILD_LOG="$(realpath "${UWEBSOCKETS_SRC_PATH}/commands.log")"
+
+#  (cd "${UWEBSOCKETS_SRC_PATH}"; echo + cd "${PWD}"
+#   CMD=(make commands)
+#   echo + "${CMD[@]}" && "${CMD[@]}")
+
+#  echo
+#  CMD=(cat "${UWEBSOCKETS_BUILD_LOG}")
+#  CMD+=('|')
+#  CMD+=("${C2CDB}")
+#  CMD+=("--compilers=${CC},${CXX}")
+#  CMD+=('--build-tool=make')
+#  CMD+=("--root-directory=${UWEBSOCKETS_SRC_PATH}")
+#  CMD+=("--output-filename=${UWEBSOCKETS_COMPDB_PATH}")
+#  echo + "${CMD[@]}" && eval "${CMD[@]}")
+
+echo
+(CMD=("${MERGE}")
+ CMD+=(-o "${COMPDB_TMPD_PATH}/compile_commands.json")
+ # CMD+=("${UWEBSOCKETS_COMPDB_PATH}")
+ # CMD+=("${USOCKETS_COMPDB_PATH}")
+ # CMD+=("${BOOST_COMPDB_PATH}")
+ # CMD+=("${WT_COMPDB_PATH}")
+ CMD+=("${BAZ_COMPDB_PATH}")
+ echo + "${CMD[@]}" && "${CMD[@]}")

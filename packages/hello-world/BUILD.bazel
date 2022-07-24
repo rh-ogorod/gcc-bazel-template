@@ -8,5 +8,5 @@ cc_binary(
     "src/main.cpp",
   ],
   # linkopts = ['-Wl,-rpath,"$$ORIGIN/../lib"'],
-  # visibility = ["//visibility:public"],
+  visibility = ["//visibility:public"],
 )

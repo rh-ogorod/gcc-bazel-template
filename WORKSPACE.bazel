@@ -53,10 +53,10 @@ workspace(name = "gcc-bazel-init")
 #   # repo_mapping = {"@com_github_google_flatbuffers" : "@flatbuffers"}
 # )
 
-# local_repository(
-#   name = "rules_compdb",
-#   path = "external/bazelbuild-rules_compdb",
-# )
+local_repository(
+  name = "rules_compdb",
+  path = "external/bazelbuild-rules-compdb",
+)
 
 # local_repository(
 #   name = "boost",

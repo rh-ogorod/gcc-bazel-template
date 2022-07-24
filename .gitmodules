@@ -1,0 +1,4 @@
+[submodule "@ogorod/bazelbuild-rules-compdb"]
+	path = external/bazelbuild-rules-compdb
+	url = git@gitlab.com:ogorod/bazelbuild-rules-compdb.git
+	branch = main
