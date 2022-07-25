@@ -1,7 +1,10 @@
 ;; -*- coding: utf-8 -*-
 
-(require 'lsp-mode)
+(require 'cl)
+(require 'hydra)
+(require 'vterm)
 (require 'flycheck)
+(require 'lsp-mode)
 (require 'lsp-javascript)
 
 ;;; gcc-bazel-init common command
