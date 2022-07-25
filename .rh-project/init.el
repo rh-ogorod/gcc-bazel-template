@@ -86,7 +86,8 @@
    t)
   (flycheck-buffer))
 
-(eval-after-load 'lsp-javascript #'gcc-bazel-init/config-lsp-javascript)
+;; (eval-after-load 'lsp-javascript #'gcc-bazel-init/config-lsp-javascript)
+(eval-after-load 'lsp-mode #'gcc-bazel-init/config-lsp-javascript)
 
 (defun gcc-bazel-init-setup ()
   (when buffer-file-name
