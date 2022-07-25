@@ -1,0 +1,15 @@
+{
+  "extends": "@ogorod/js-configs/node/tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "rootDir": "src",
+  },
+  "include": [
+    "src",
+  ],
+  "exclude": [
+    "buildcache",
+    "dist",
+    "node_modules",
+  ],
+}
