@@ -35,10 +35,10 @@ echo
 CMD=(bazel build --subcommands //:compdb '--color=yes' '--curses=yes')
 echo + "${CMD[@]}" && "${CMD[@]}"
 
-# echo
-# CMD=(rm -frv)
-# CMD+=("${COMPDB_TMPD_PATH}")
-# echo + "${CMD[@]}" && "${CMD[@]}"
+echo
+CMD=(rm -frv)
+CMD+=("${COMPDB_TMPD_PATH}")
+echo + "${CMD[@]}" && "${CMD[@]}"
 
 echo
 CMD=(mkdir -vp "${COMPDB_TMPD_PATH}")
@@ -142,11 +142,15 @@ echo
 #  echo + "${CMD[@]}" && eval "${CMD[@]}")
 
 echo
-(CMD=("${MERGE}")
- CMD+=(-o "${COMPDB_TMPD_PATH}/compile_commands.json")
- # CMD+=("${UWEBSOCKETS_COMPDB_PATH}")
- # CMD+=("${USOCKETS_COMPDB_PATH}")
- # CMD+=("${BOOST_COMPDB_PATH}")
- # CMD+=("${WT_COMPDB_PATH}")
- CMD+=("${BAZ_COMPDB_PATH}")
- echo + "${CMD[@]}" && "${CMD[@]}")
+CMD=("${MERGE}")
+CMD+=(-o "${COMPDB_TMPD_PATH}/compile_commands.json")
+# CMD+=("${UWEBSOCKETS_COMPDB_PATH}")
+# CMD+=("${USOCKETS_COMPDB_PATH}")
+# CMD+=("${BOOST_COMPDB_PATH}")
+# CMD+=("${WT_COMPDB_PATH}")
+CMD+=("${BAZ_COMPDB_PATH}")
+echo + "${CMD[@]}" && "${CMD[@]}"
+
+echo
+CMD=(cp -vf "${COMPDB_TMPD_PATH}/compile_commands.json" "${PRJ_ROOT_PATH}")
+echo + "${CMD[@]}" && "${CMD[@]}"
