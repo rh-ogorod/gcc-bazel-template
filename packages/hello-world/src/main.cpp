@@ -1,6 +1,6 @@
 // Hey Emacs, this is -*- coding: utf-8 -*-
 
-#include  <iostream>
+#include <iostream>
 
 int main(int argc, char *argv[]) {
   // std::locale loc(std::locale(), new nan_num_put);

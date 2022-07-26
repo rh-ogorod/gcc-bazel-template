@@ -6,6 +6,7 @@
 (require 'flycheck)
 (require 'lsp-mode)
 (require 'lsp-javascript)
+(require 'clang-format)
 
 ;;; gcc-bazel-init common command
 ;;; /b/{
@@ -144,6 +145,7 @@
                           ;; '(save mode-enabled)
                           '(idle-change save mode-enabled))))
 
+          (add-hook 'before-save-hook #'clang-format-buffer nil t)
           (company-mode 1)
           (lsp 1))
 
