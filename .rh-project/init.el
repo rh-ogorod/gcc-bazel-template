@@ -59,6 +59,29 @@
           "node_modules/.bin/"
           path))
 
+(defvar gcc-bazel-init/lsp-clients-clangd-args '())
+
+(defun gcc-bazel-init/config-lsp-clangd ()
+  (setq gcc-bazel-init/lsp-clients-clangd-args
+        (copy-sequence lsp-clients-clangd-args))
+  ;; (add-to-list
+  ;;  'gcc-bazel-init/lsp-clients-clangd-args
+  ;;  "--query-driver=/usr/bin/g*-11,/usr/bin/clang*"
+  ;;  t)
+
+  (add-hook
+   'lsp-after-open-hook
+   #'gcc-bazel-init/company-capf-c++-local-disable)
+
+  (add-hook
+   'lsp-after-initialize-hook
+   #'gcc-bazel-init/company-capf-c++-local-disable))
+
+(defun gcc-bazel-init/company-capf-c++-local-disable ()
+  (when (eq major-mode 'c++-mode)
+    (setq-local company-backends
+                (remq 'company-capf company-backends))))
+
 (defun gcc-bazel-init/config-lsp-javascript ()
   (plist-put
    lsp-deps-providers
@@ -100,6 +123,30 @@
          ((bound-and-true-p archive-subfile-mode)
           (company-mode 1))
 
+         ((seq-contains '(c++-mode c-mode) major-mode)
+          (when (rh-clangd-executable-find)
+            (when (featurep 'lsp-mode)
+              (setq-local
+               lsp-clients-clangd-args
+               (copy-sequence gcc-bazel-init/lsp-clients-clangd-args))
+
+              (add-to-list
+               'lsp-clients-clangd-args
+               (concat "--compile-commands-dir="
+                       (expand-file-name (rh-project-get-root)))
+               t)
+
+              (setq-local lsp-modeline-diagnostics-enable nil)
+              ;; (lsp-headerline-breadcrumb-mode 1)
+
+              (setq-local flycheck-idle-change-delay 3)
+              (setq-local flycheck-check-syntax-automatically
+                          ;; '(save mode-enabled)
+                          '(idle-change save mode-enabled))))
+
+          (company-mode 1)
+          (lsp 1))
+
          ((or (setq
                ext-js
                (string-match-p "\\.ts\\'\\|\\.tsx\\'\\|\\.js\\'\\|\\.jsx\\'"
@@ -132,9 +179,8 @@
            'flycheck-after-syntax-check-hook
            #'gcc-bazel-init/flycheck-after-syntax-check-hook-once
            nil t)
-          (lsp)
+          (lsp 1)
           ;; (lsp-headerline-breadcrumb-mode -1)
-
           (prettier-mode 1)))))))
 
 ;;; /b/}
