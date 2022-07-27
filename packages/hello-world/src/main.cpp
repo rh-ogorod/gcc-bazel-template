@@ -2,10 +2,7 @@
 
 #include <iostream>
 
-int main(int argc, char *argv[]) {
-  // std::locale loc(std::locale(), new nan_num_put);
-  // std::cout.imbue(loc);
-
+auto main(int /*argc*/, char* /*argv*/[]) -> int {
   std::cout << "Hello World!" << std::endl;
 
   return 0;
