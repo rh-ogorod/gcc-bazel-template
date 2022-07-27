@@ -23,7 +23,8 @@ echo + "${CMD[@]}" && "${CMD[@]}"
 
 echo
 (cd ./.rh-project; echo cd "${PWD}"
- CMD=(./build-hello-world)
+ CMD=(./build-all)
  echo + "${CMD[@]}" && "${CMD[@]}"
+
  CMD=(./generate-compdb)
  echo + "${CMD[@]}" && "${CMD[@]}")
