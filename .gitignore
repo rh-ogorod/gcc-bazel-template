@@ -5,6 +5,7 @@
 /.cache/*
 # !/.cache/compdb
 *.~undo-tree~
+\#*\#
 
 # https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
 .yarn/*

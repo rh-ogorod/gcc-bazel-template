@@ -70,18 +70,19 @@
   ;;  "--query-driver=/usr/bin/g*-11,/usr/bin/clang*"
   ;;  t)
 
-  (add-hook
-   'lsp-after-open-hook
-   #'gcc-bazel-init/company-capf-c++-local-disable)
+  ;; (add-hook
+  ;;  'lsp-after-open-hook
+  ;;  #'gcc-bazel-init/company-capf-c++-local-disable)
 
-  (add-hook
-   'lsp-after-initialize-hook
-   #'gcc-bazel-init/company-capf-c++-local-disable))
+  ;; (add-hook
+  ;;  'lsp-after-initialize-hook
+  ;;  #'gcc-bazel-init/company-capf-c++-local-disable)
+  )
 
-(defun gcc-bazel-init/company-capf-c++-local-disable ()
-  (when (eq major-mode 'c++-mode)
-    (setq-local company-backends
-                (remq 'company-capf company-backends))))
+;; (defun gcc-bazel-init/company-capf-c++-local-disable ()
+;;   (when (eq major-mode 'c++-mode)
+;;     (setq-local company-backends
+;;                 (remq 'company-capf company-backends))))
 
 (defun gcc-bazel-init/config-lsp-javascript ()
   (plist-put
@@ -112,6 +113,7 @@
 
 ;; (eval-after-load 'lsp-javascript #'gcc-bazel-init/config-lsp-javascript)
 (eval-after-load 'lsp-mode #'gcc-bazel-init/config-lsp-javascript)
+(eval-after-load 'lsp-mode #'gcc-bazel-init/config-lsp-clangd)
 
 (defun gcc-bazel-init-setup ()
   (when buffer-file-name
