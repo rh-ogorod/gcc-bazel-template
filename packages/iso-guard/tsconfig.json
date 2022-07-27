@@ -1,6 +1,0 @@
-{
-  "extends": "@ogorod/js-configs/node/tsconfig.json",
-  "compilerOptions": {
-    "noEmit": true,
-  },
-}
