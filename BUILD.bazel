@@ -6,8 +6,7 @@ compilation_database(
   name = "compdb",
   targets = [
     "//packages/hello-world",
-    # "@host//server:s600-host",
-    # "@flatbuffers//src:flatc",
+    "@hello-another-world//:hello-another-world",
   ],
   module_exts = ["cpp"],
 )

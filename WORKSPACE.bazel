@@ -41,10 +41,10 @@ workspace(name = "gcc-bazel-init")
 
 # boost_deps()
 
-# local_repository(
-#   name = "packages",
-#   path = "packages",
-# )
+local_repository(
+  name = "hello-another-world",
+  path = "packages/hello-another-world",
+)
 
 # local_repository(
 #   # name = "com_github_google_flatbuffers",

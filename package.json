@@ -4,7 +4,7 @@
   "private": true,
   "workspaces": [
     "external/bazelbuild-rules-compdb",
-    "packages/js-configs"
+    "external/js-configs"
   ],
   "scripts": {
     "app:build": "yarn workspaces foreach --verbose --parallel --topological-dev run build",
