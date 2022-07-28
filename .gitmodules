@@ -1,4 +1,8 @@
 [submodule "@ogorod/bazelbuild-rules-compdb"]
 	path = external/bazelbuild-rules-compdb
-	url = git@gitlab.com:ogorod/bazelbuild-rules-compdb.git
+	url = git@github.com:rh-ogorod/bazelbuild-rules-compdb.git
+	branch = main
+[submodule "@rh-ogorod/js-configs"]
+	path = external/js-configs
+	url = git@github.com:rh-ogorod/js-configs.git
 	branch = main
