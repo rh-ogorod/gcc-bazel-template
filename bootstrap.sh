@@ -12,10 +12,10 @@ readonly SDPATH="$(cd -P "${SDPATH}" && pwd)"
 PRJ_ROOT_PATH="${SDPATH}"
 readonly PRJ_ROOT_PATH="$(cd "${PRJ_ROOT_PATH}" && pwd)"
 
-cd "${PRJ_ROOT_PATH}"; echo + cd ${PWD}
+cd "${PRJ_ROOT_PATH}"; echo + cd "${PWD}"
 
-CMD=(./.rh-project/git-populate-submodules)
-echo + ${CMD[@]} && "${CMD[@]}"
+CMD=(./.rh-project/git-populate-submodules.sh)
+echo + "${CMD[@]}" && "${CMD[@]}"
 
 echo
 CMD=(yarn)
@@ -23,8 +23,5 @@ echo + "${CMD[@]}" && "${CMD[@]}"
 
 echo
 (cd ./.rh-project; echo cd "${PWD}"
- CMD=(./build-all)
- echo + "${CMD[@]}" && "${CMD[@]}"
-
- CMD=(./generate-compdb)
+ CMD=(./generate-compdb.sh)
  echo + "${CMD[@]}" && "${CMD[@]}")
