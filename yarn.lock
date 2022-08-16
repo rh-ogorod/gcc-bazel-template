@@ -159,11 +159,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ogorod/bazelbuild-rules_compdb@workspace:external/bazelbuild-rules-compdb":
-  version: 0.0.0-use.local
-  resolution: "@ogorod/bazelbuild-rules_compdb@workspace:external/bazelbuild-rules-compdb"
+"@pkgr/utils@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "@pkgr/utils@npm:2.3.0"
   dependencies:
-    "@ogorod/js-configs": "workspace:*"
+    cross-spawn: ^7.0.3
+    is-glob: ^4.0.3
+    open: ^8.4.0
+    picocolors: ^1.0.0
+    tiny-glob: ^0.2.9
+    tslib: ^2.4.0
+  checksum: d2fe95c51d548497425182b284dea8155d9e80bb36fa744c670174d7deae53743b13aa9f63a8bfaa8b31dcf7c53dc279a99372f2c2c35ff9fcebf91c5c5c8190
+  languageName: node
+  linkType: hard
+
+"@rh-ogorod/bazelbuild-rules_compdb@workspace:external/bazelbuild-rules-compdb":
+  version: 0.0.0-use.local
+  resolution: "@rh-ogorod/bazelbuild-rules_compdb@workspace:external/bazelbuild-rules-compdb"
+  dependencies:
+    "@rh-ogorod/js-configs": "workspace:*"
     "@types/node": ^16.11.45
     "@typescript-eslint/eslint-plugin": ^5.30.7
     "@typescript-eslint/parser": ^5.30.7
@@ -180,9 +194,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ogorod/js-configs@workspace:*, @ogorod/js-configs@workspace:external/js-configs":
+"@rh-ogorod/js-configs@workspace:*, @rh-ogorod/js-configs@workspace:external/js-configs":
   version: 0.0.0-use.local
-  resolution: "@ogorod/js-configs@workspace:external/js-configs"
+  resolution: "@rh-ogorod/js-configs@workspace:external/js-configs"
   dependencies:
     "@types/node": ^16.11.45
     "@typescript-eslint/eslint-plugin": ^5.30.7
@@ -199,20 +213,6 @@ __metadata:
     typescript: ^4.7.4
   languageName: unknown
   linkType: soft
-
-"@pkgr/utils@npm:^2.3.0":
-  version: 2.3.0
-  resolution: "@pkgr/utils@npm:2.3.0"
-  dependencies:
-    cross-spawn: ^7.0.3
-    is-glob: ^4.0.3
-    open: ^8.4.0
-    picocolors: ^1.0.0
-    tiny-glob: ^0.2.9
-    tslib: ^2.4.0
-  checksum: d2fe95c51d548497425182b284dea8155d9e80bb36fa744c670174d7deae53743b13aa9f63a8bfaa8b31dcf7c53dc279a99372f2c2c35ff9fcebf91c5c5c8190
-  languageName: node
-  linkType: hard
 
 "@tootallnate/once@npm:2":
   version: 2.0.0
