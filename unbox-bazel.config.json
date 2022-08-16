@@ -1,6 +1,0 @@
-{
-  "bazelExternalReplacements": {
-    "system": "",
-    "bazel_tools": ""
-  }
-}
