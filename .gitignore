@@ -1,9 +1,12 @@
-/.cache
 /.clangd
 /.log
+/compile_commands.json
 
-/.cache/*
+/.cache
+# /.cache/*
 # !/.cache/compdb
+
+*.bkp
 *.~undo-tree~
 \#*\#
 
