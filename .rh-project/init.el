@@ -11,40 +11,40 @@
 ;;; gcc-bazel-init common command
 ;;; /b/{
 
-(defvar gcc-bazel-init/build-buffer-name
+(defvar frpc-poc/build-buffer-name
   "*gcc-bazel-init-build*")
 
-(defun gcc-bazel-init/lint ()
+(defun frpc-poc/lint ()
   (interactive)
   (rh-project-compile
    "yarn-run app:lint"
-   gcc-bazel-init/build-buffer-name))
+   frpc-poc/build-buffer-name))
 
-(defun gcc-bazel-init/build ()
+(defun frpc-poc/build ()
   (interactive)
   (rh-project-compile
    "yarn-run app:build"
-   gcc-bazel-init/build-buffer-name))
+   frpc-poc/build-buffer-name))
 
-(defun gcc-bazel-init/clean ()
+(defun frpc-poc/clean ()
   (interactive)
   (rh-project-compile
    "yarn-run app:clean"
-   gcc-bazel-init/build-buffer-name))
+   frpc-poc/build-buffer-name))
 
 ;;; /b/}
 
 ;;; gcc-bazel-init
 ;;; /b/{
 
-(defun gcc-bazel-init/hydra-define ()
+(defun frpc-poc/hydra-define ()
   (defhydra gcc-bazel-init-hydra (:color blue :columns 5)
     "@gcc-bazel-init workspace commands"
-    ("l" gcc-bazel-init/lint "lint")
-    ("b" gcc-bazel-init/build "build")
-    ("c" gcc-bazel-init/clean "clean")))
+    ("l" frpc-poc/lint "lint")
+    ("b" frpc-poc/build "build")
+    ("c" frpc-poc/clean "clean")))
 
-(gcc-bazel-init/hydra-define)
+(frpc-poc/hydra-define)
 
 (define-minor-mode gcc-bazel-init-mode
   "gcc-bazel-init project-specific minor mode."
@@ -55,39 +55,39 @@
 
 (add-to-list 'rm-blacklist " gcc-bazel-init")
 
-(defun gcc-bazel-init/lsp-deps-providers-path (path)
+(defun frpc-poc/lsp-deps-providers-path (path)
   (concat (expand-file-name (rh-project-get-root))
           "node_modules/.bin/"
           path))
 
-(defvar gcc-bazel-init/lsp-clients-clangd-args '())
+(defvar frpc-poc/lsp-clients-clangd-args '())
 
-(defun gcc-bazel-init/config-lsp-clangd ()
-  (setq gcc-bazel-init/lsp-clients-clangd-args
+(defun frpc-poc/config-lsp-clangd ()
+  (setq frpc-poc/lsp-clients-clangd-args
         (copy-sequence lsp-clients-clangd-args))
   ;; (add-to-list
-  ;;  'gcc-bazel-init/lsp-clients-clangd-args
-  ;;  "--query-driver=/usr/bin/g*-11,/usr/bin/clang*"
+  ;;  'frpc-poc/lsp-clients-clangd-args
+  ;;  "--query-driver=/usr/bin/g*-11,/usr/bin/clang*-14"
   ;;  t)
 
   ;; (add-hook
   ;;  'lsp-after-open-hook
-  ;;  #'gcc-bazel-init/company-capf-c++-local-disable)
+  ;;  #'frpc-poc/company-capf-c++-local-disable)
 
   ;; (add-hook
   ;;  'lsp-after-initialize-hook
-  ;;  #'gcc-bazel-init/company-capf-c++-local-disable)
+  ;;  #'frpc-poc/company-capf-c++-local-disable)
   )
 
-;; (defun gcc-bazel-init/company-capf-c++-local-disable ()
+;; (defun frpc-poc/company-capf-c++-local-disable ()
 ;;   (when (eq major-mode 'c++-mode)
 ;;     (setq-local company-backends
 ;;                 (remq 'company-capf company-backends))))
 
-(defun gcc-bazel-init/config-lsp-javascript ()
+(defun frpc-poc/config-lsp-javascript ()
   (plist-put
    lsp-deps-providers
-   :local (list :path #'gcc-bazel-init/lsp-deps-providers-path))
+   :local (list :path #'frpc-poc/lsp-deps-providers-path))
 
   (lsp-dependency 'typescript-language-server
                   '(:local "typescript-language-server"))
@@ -98,22 +98,22 @@
 
   (add-hook
    'lsp-after-initialize-hook
-   #'gcc-bazel-init/flycheck-add-eslint-next-to-lsp))
+   #'frpc-poc/flycheck-add-eslint-next-to-lsp))
 
-(defun gcc-bazel-init/flycheck-add-eslint-next-to-lsp ()
+(defun frpc-poc/flycheck-add-eslint-next-to-lsp ()
   (when (seq-contains-p '(js2-mode typescript-mode web-mode) major-mode)
     (flycheck-add-next-checker 'lsp 'javascript-eslint)))
 
-(defun gcc-bazel-init/flycheck-after-syntax-check-hook-once ()
+(defun frpc-poc/flycheck-after-syntax-check-hook-once ()
   (remove-hook
    'flycheck-after-syntax-check-hook
-   #'gcc-bazel-init/flycheck-after-syntax-check-hook-once
+   #'frpc-poc/flycheck-after-syntax-check-hook-once
    t)
   (flycheck-buffer))
 
-;; (eval-after-load 'lsp-javascript #'gcc-bazel-init/config-lsp-javascript)
-(eval-after-load 'lsp-mode #'gcc-bazel-init/config-lsp-javascript)
-(eval-after-load 'lsp-mode #'gcc-bazel-init/config-lsp-clangd)
+;; (eval-after-load 'lsp-javascript #'frpc-poc/config-lsp-javascript)
+(eval-after-load 'lsp-mode #'frpc-poc/config-lsp-javascript)
+(eval-after-load 'lsp-mode #'frpc-poc/config-lsp-clangd)
 
 (defun gcc-bazel-init-setup ()
   (when buffer-file-name
@@ -131,7 +131,7 @@
             (when (featurep 'lsp-mode)
               (setq-local
                lsp-clients-clangd-args
-               (copy-sequence gcc-bazel-init/lsp-clients-clangd-args))
+               (copy-sequence frpc-poc/lsp-clients-clangd-args))
 
               (add-to-list
                'lsp-clients-clangd-args
@@ -181,7 +181,7 @@
           (setq-local lsp-modeline-diagnostics-enable nil)
           (add-hook
            'flycheck-after-syntax-check-hook
-           #'gcc-bazel-init/flycheck-after-syntax-check-hook-once
+           #'frpc-poc/flycheck-after-syntax-check-hook-once
            nil t)
           (lsp 1)
           ;; (lsp-headerline-breadcrumb-mode -1)

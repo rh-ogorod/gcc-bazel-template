@@ -14,5 +14,9 @@ readonly PRJ_ROOT_PATH="$(cd "${PRJ_ROOT_PATH}" && pwd)"
 # https://stackoverflow.com/questions/1777854/how-can-i-specify-a-branch-tag-when-adding-a-git-submodule
 git submodule foreach --recursive \
   'branch="$(git config -f $toplevel/.gitmodules submodule.$name.branch)"; \
-  git checkout $branch; \
-  git pull'
+   if [ ! -z "${branch}" ]; then \
+     echo No branch specified in .gitmodules for this subsodule
+   else
+     git checkout $branch; \
+     git fetch --all; \
+   fi'

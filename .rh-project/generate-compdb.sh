@@ -12,10 +12,6 @@ cd "${SDPATH}"; echo + cd "${PWD}"
 echo
 CMD=(./build-all.sh); echo + "${CMD[@]}" && "${CMD[@]}"
 
-echo
-CMD=(bazel build --subcommands //:compdb '--color=yes' '--curses=yes')
-echo + "${CMD[@]}" && "${CMD[@]}"
-
 PRJ_ROOT_PATH="${SDPATH}/.."
 readonly PRJ_ROOT_PATH="$(cd "${PRJ_ROOT_PATH}" && pwd)"
 
@@ -31,6 +27,10 @@ readonly MERGE=$(realpath external/bazelbuild-rules-compdb/merge.js)
 readonly UNBOX=$(realpath external/bazelbuild-rules-compdb/unbox.js)
 
 readonly COMPDB_TMPD_PATH="${PWD}/.cache/compdb"
+
+echo
+CMD=(bazel build --subcommands //:compdb '--color=yes' '--curses=yes')
+echo + "${CMD[@]}" && "${CMD[@]}"
 
 echo
 CMD=(rm -frv)
