@@ -2,10 +2,10 @@
 
 #include "main.hpp"
 
-#define BOOST_TEST_MODULE HikerTest
+#define BOOST_TEST_MODULE WarpTest
 #include <boost/test/unit_test.hpp>
 
-BOOST_AUTO_TEST_CASE(global_function_example) {
+BOOST_AUTO_TEST_CASE(warp_test) {
   BOOST_REQUIRE_EQUAL(warp(), 42);
 }
 
