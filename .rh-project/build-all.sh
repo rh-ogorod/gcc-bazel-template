@@ -10,9 +10,9 @@ readonly SDPATH="$(cd -P "${SDPATH}" && pwd)"
 cd "${SDPATH}"; echo cd "${PWD}"
 
 echo
-CMD=(./build-hello-world.sh)
+CMD=(./build-pre-bazel.sh)
 echo + "${CMD[@]}" && "${CMD[@]}"
 
 echo
-CMD=(./build-hello-another-world.sh)
+CMD=(./build-warp.sh)
 echo + "${CMD[@]}" && "${CMD[@]}"

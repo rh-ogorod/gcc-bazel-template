@@ -3,11 +3,14 @@
 load("@rules_cc//cc:defs.bzl", "cc_binary")
 
 cc_binary(
-  name = "hello-another-world",
+  name = "warp",
   srcs = [
     "src/main.cpp",
   ],
   deps = [
+    "@cpp-utils//:cpp-utils",
+    "@range-v3//:range-v3",
+    "@boost//:boost",
     "@system//:system",
   ],
   # linkopts = ['-Wl,-rpath,"$$ORIGIN/../lib"'],

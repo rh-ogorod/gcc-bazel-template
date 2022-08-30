@@ -10,12 +10,12 @@ readonly SDPATH="$(cd -P "${SDPATH}" && pwd)"
 # shellcheck source=./conf.sh
 source "${SDPATH}/conf.sh"
 
-cd "${INDEX_PATH}"; echo cd "${PWD}"
+cd "${PRJ_ROOT_PATH}"; echo + cd "${PWD}"
 
 echo
 CMD=(bazel)
 CMD+=("${BAZEL_BUILD_CMD[@]}")
 CMD+=("${BAZEL_DEBUG_CMD[@]}")
 CMD+=("${BAZEL_TERM_CMD[@]}")
-CMD+=(//packages/hello-world)
+CMD+=(//packages/warp)
 echo + "${CMD[@]}" && "${CMD[@]}"

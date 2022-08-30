@@ -6,3 +6,19 @@
 	path = external/bazelbuild-rules-compdb
 	url = git@github.com:rh-ogorod/bazelbuild-rules-compdb.git
 	branch = main
+[submodule "@ericniebler/range-v3"]
+	path = external/range-v3
+	url = git@github.com:ericniebler/range-v3.git
+	branch = master
+[submodule "@rh-ogorod/cpp-utils"]
+	path = external/cpp-utils
+	url = git@github.com:rh-ogorod/cpp-utils.git
+	branch = main
+[submodule "@rh-ogorod/boost"]
+	path = external/boost/package
+	url = git@github.com:rh-ogorod/boost.git
+	branch = master
+[submodule "@tee3/commands_to_compilation_database"]
+	path = external/commands_to_compilation_database
+	url = git@github.com:tee3/commands_to_compilation_database.git
+	branch = master
