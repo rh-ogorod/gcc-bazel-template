@@ -6,6 +6,7 @@ compilation_database(
   name = "compdb",
   targets = [
     "//packages/warp",
+    # "//packages/warp:warp_test",
   ],
   module_exts = ["cpp"],
 )

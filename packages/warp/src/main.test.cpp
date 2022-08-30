@@ -5,6 +5,7 @@
 #define BOOST_TEST_MODULE WarpTest
 #include <boost/test/unit_test.hpp>
 
+// NOLINTNEXTLINE
 BOOST_AUTO_TEST_CASE(warp_test) {
   BOOST_REQUIRE_EQUAL(warp(), 42);
 }
