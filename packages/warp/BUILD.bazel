@@ -1,11 +1,28 @@
 # Hey Emacs, this is -*- coding: utf-8; mode: bazel -*-
 
-load("@rules_cc//cc:defs.bzl", "cc_binary")
+load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_test")
 
 cc_binary(
   name = "warp",
   srcs = [
+    "src/main.hpp",
     "src/main.cpp",
+  ],
+  deps = [
+    "@cpp-utils//:cpp-utils",
+    "@range-v3//:range-v3",
+    "@boost//:boost",
+    "@system//:system",
+  ],
+  # linkopts = ['-Wl,-rpath,"$$ORIGIN/../lib"'],
+  visibility = ["//visibility:public"],
+)
+
+cc_test(
+  name = "warp_test",
+  srcs = [
+    "src/main.hpp",
+    "src/main.test.cpp",
   ],
   deps = [
     "@cpp-utils//:cpp-utils",
