@@ -9,4 +9,8 @@ readonly SDPATH="$(cd "${SDPATH}" && pwd)"
 
 cd "${SDPATH}"; echo + cd "${PWD}"
 
-git submodule update --init --recursive
+# shellcheck source=./conf.sh
+source "${SDPATH}/conf.sh"
+
+CMD=(git submodule update --init --recursive "--jobs=${NPROC}")
+echo + "${CMD[@]}" && "${CMD[@]}"
